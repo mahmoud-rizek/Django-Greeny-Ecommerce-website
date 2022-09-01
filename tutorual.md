@@ -8,8 +8,9 @@ product:
     - tage
     - description
     - subtitle
-    - review
-    - flag [new,sal,feature]
+    - reviews
+    - flag [new,sale,feature]
+    - video 
 
 category:
     - name
