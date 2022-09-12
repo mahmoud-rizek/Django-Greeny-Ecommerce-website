@@ -5,6 +5,7 @@ from django.db.models import Count
 
 class ProductList(ListView):
     model = product
+    paginate_by= 10
 
 class ProductDetail(DetailView):
     model = product
@@ -18,7 +19,7 @@ class ProductDetail(DetailView):
     
 class BrandList(ListView):
     model = Brand
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["brands"] = Brand.objects.all().annotate(product_count=Count('product_brand'))
@@ -31,11 +32,13 @@ class BrandtDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        countcontext = super().get_context_data(**kwargs)
         brand = self.get_object()
         context["brands"] = Brand.objects.all().annotate(product_count=Count('product_brand'))
 
         context["brand_products"] =product.objects.filter(brand=brand)
         return context
+
 
 class CategoryList(ListView):
     model = Category

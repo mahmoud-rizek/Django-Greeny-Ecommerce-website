@@ -11,12 +11,13 @@ class productadmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'flag']
     inlines = [productImagesInline]
 
-
+class categoryadmin(admin.ModelAdmin):
+    list_display = ['name','id']
 
 
 
 admin.site.register(product, productadmin)
 admin.site.register(productImages)
 admin.site.register(productReviews)
-admin.site.register(Category)
-admin.site.register(Brand)
+admin.site.register(Category, categoryadmin)
+admin.site.register(Brand, categoryadmin)

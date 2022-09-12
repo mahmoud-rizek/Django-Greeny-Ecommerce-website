@@ -376,13 +376,13 @@
         <div class="product-card">
           <div class="product-media">
             <div class="product-label">
-              <label class="label-text sale">sale</label>
+              <label class="label-text sale">{{prelated.flag}}</label>
             </div>
             <button class="product-wish wish">
               <i class="fas fa-heart"></i>
             </button>
             <a class="product-image" href="product-video.html">
-              <img src="images/product/01.jpg" alt="product" />
+              <img src="{{prelated.image.url}}" alt="product" />
             </a>
             <div class="product-widget">
               <a
@@ -416,11 +416,11 @@
               <a href="product-video.html">(3)</a>
             </div>
             <h6 class="product-name">
-              <a href="product-video.html">{{product}}</a>
+              <a href="product-video.html">{{prelated}}</a>
             </h6>
             <h6 class="product-price">
               <del>$34</del>
-              <span>${{product.price}}<small>/piece</small></span>
+              <span>${{prelated.price}}<small>/piece</small></span>
             </h6>
             <button class="product-add" title="Add to Cart">
               <i class="fas fa-shopping-basket"></i>
