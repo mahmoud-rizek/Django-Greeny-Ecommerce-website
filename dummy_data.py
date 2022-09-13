@@ -8,26 +8,31 @@ django.setup()
 
 
 # import ----> functions
-from faker import Faker
+from faker import Faker # librart for create fake data
 import random
-from products.models import product, Brand, Category
+from products.models import product, Brand, Category # import models
 
 
 
-def seed_brand(n):
-    faker = Faker()
+def seed_brand(n): # to create fake brand
+
+    fake = Faker()
     images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.png', '6.jpeg', '7.png']
 
     for _ in range(n):
-        name = faker.name()
+
+        Name = fake.name()
         image = f"brands/{images[random.randint(0, 6)]}"
         Brand.objects.create(
-            name = name,
+            name = Name,
             image = image
         )
+
     print(f"Successfully seeded {n} brand")
 
+
 def seed_category(n):
+
     faker = Faker()
     images = ['1.png', '2.jpg', '3.jpg', '4.jpg', '5.png', '6.jpeg']
 
@@ -38,14 +43,17 @@ def seed_category(n):
             name = name,
             image = image
         )
+
     print(f"Successfully seeded {n} category")
 
 def seed_product(n):
+
     faker = Faker()
     images = ['1.png', '2.jpg', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.png']
     flagtype = ['New', 'Feature', 'Sale']
 
     for _ in range(n):
+
         name = faker.name()
         image = f"products/{images[random.randint(0, 15)]}"
         flag = flagtype[random.randint(0,2)]
