@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import product, productImages, Brand, Category
-from django.db.models import Count
+from django.db.models import Count, Q
 
 
 def testing_page(request):
     # objects = product.objects.all()  # select all products
-    objects = product.objects.filter(price__range=(120, 400))
+    # objects = product.objects.filter(price__range=(120, 400))
+    # objects = product.objects.filter(name__contains='sara')
+    # objects = product.objects.filter(name__startswith='ma', price__gt=490)
+    objects = product.objects.filter(
+        Q(name__startswith='ma') |
+        Q(price__gt=490))
 
     return render(request, "products/testing.html", {"products": objects})
 
