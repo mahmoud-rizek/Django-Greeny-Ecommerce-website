@@ -29,7 +29,7 @@ class ProductDetail(DetailView):
         myproduct = self.get_object()
         context["images"] = productImages.objects.filter(product=myproduct)
         context["related"] = product.objects.filter(
-            category=myproduct.category)
+            category=myproduct.category)[:10]
         return context
 
 
