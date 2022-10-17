@@ -8,24 +8,26 @@ django.setup()
 
 
 # import ----> functions
-from faker import Faker # librart for create fake data
+
+        # librart for create fake data
+from faker import Faker 
+        # librart for genrate random number
 import random
-from products.models import product, Brand, Category # import models
+            # import models
+from products.models import product, Brand, Category 
 
 
 
 def seed_brand(n): # to create fake brand
-
     fake = Faker()
-    images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.png', '6.jpeg', '7.png']
+    images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg']
 
     for _ in range(n):
-
-        Name = fake.name()
-        image = f"brands/{images[random.randint(0, 6)]}"
+        name = fake.name()
+        image = f"brand/{images[random.randint(0, 5)]}"
         Brand.objects.create(
-            name = Name,
-            image = image
+            name=name,
+            image= image
         )
 
     print(f"Successfully seeded {n} brand")

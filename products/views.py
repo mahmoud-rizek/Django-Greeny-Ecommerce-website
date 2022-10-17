@@ -1,18 +1,60 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import product, productImages, Brand, Category
-from django.db.models import Count, Q
+from django.db.models import Count, Q , F
 
 
 def testing_page(request):
     # objects = product.objects.all()  # select all products
-    # objects = product.objects.filter(price__range=(120, 400))
-    # objects = product.objects.filter(name__contains='sara')
-    # objects = product.objects.filter(name__startswith='ma', price__gt=490)
-    objects = product.objects.filter(
-        Q(name__startswith='ma') |
-        Q(price__gt=490))
 
+            ## Filter by colum
+            
+    # objects = product.objects.filter(price__range=(110, 122)) 
+    
+    # objects = product.objects.filter(category__id=33)
+    # objects = product.objects.filter(category__id__gt=30)
+
+    # objects = product.objects.filter(name__contains='sara')# filter by name
+    # objects = product.objects.filter(name__startswith='ma', price__gt=490)
+    # objects = product.objects.filter(name__endswith='a')
+
+    # objects = product.objects.filter(desc__isnull=True)
+    # objects = product.objects.filter(quantity__gt=10)
+
+
+            # _________ Q ________________
+
+    # objects = product.objects.filter(
+    #     Q(name__startswith='ma') | # select this or this
+    #     Q(price__gt=490)
+    # )
+
+    # objects = product.objects.filter(
+    #     Q(name__startswith='ma') & #select this and this
+    #     Q(price__gt=490)
+    # # )
+
+    # objects = product.objects.filter(
+    #     Q(name__startswith='ma') & #select this and not this
+    #     ~Q(price__gt=490)
+    # )
+
+    # # objects = product.objects.filter(quantity=F('category__id')) # Refrance keys
+
+            # _________ Order by ________________
+
+    # objects = product.objects.order_by('name')  # ترتيب تصاعدي 
+    # objects = product.objects.order_by('-name') # ترتيب تنازلي    
+    # objects = product.objects.filter(quantity=F('category__id')).order_by('name')[:10]
+
+
+    # objects = product.objects.earliest('name')
+    # objects = product.objects.latest('name')
+    # objects = product.objects.values('id', 'name')
+    # objects = product.objects.values_list('id', 'name')
+    objects = product.objects.only('id', 'name')
+
+    
     return render(request, "products/testing.html", {"products": objects})
 
 
