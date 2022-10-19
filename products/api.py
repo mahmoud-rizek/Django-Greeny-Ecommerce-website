@@ -1,25 +1,13 @@
-from .serializers import ProductSerializer, CategorySerializer, BrandSerializer
-from .models import product
+from .serializers import ProductSerializer, CategorySerializer, BrandSerializer, productReviewsSerializer
+from .models import product, Category, Brand, productReviews
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
 
  # Functions API
-@api_view(['GET'])
-def product_list_api(request):
-    objectList = product.objects.all()[:200]
-    data = ProductSerializer(objectList, many=True).data
-    return Response({'all_product':data})
- 
-@api_view(['GET'])
-def product_detail_api(request, id):
-    objectList = product.objects.get(id=id)
-    data = ProductSerializer(objectList).data
-    return Response({'product_detail':data})
 
 
 # Generics class API
-# class ProductListAPI(generics.ListCreateAPIView):
 class ProductListAPI(generics.ListAPIView):
     queryset = product.objects.all()
     serializer_class = ProductSerializer
@@ -30,11 +18,32 @@ class ProductDetailAPI(generics.RetrieveAPIView ):
     serializer_class = ProductSerializer
 
 
+class CategoryListAPI(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryDetailAPI(generics.RetrieveAPIView):
+    queryset = Category
+    serializer_class = CategorySerializer
+
+
+class BrandListAPI(generics.ListAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = CategorySerializer
+
+class BrandDetailAPI(generics.RetrieveAPIView):
+    queryset = Brand
+    serializer_class = BrandSerializer
+
+
+
+class ProductReviewsList(generics.ListAPIView):
+    queryset = productReviews.objects.all()
+    serializer_class = productReviewsSerializer
+
 
 # Viewsets API
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing user instances.
-    """
     serializer_class = ProductSerializer
     queryset = product.objects.all()

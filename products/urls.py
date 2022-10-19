@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ProductList, ProductDetail, BrandList, BrandtDetail, CategoryList, testing_page
-from .api import product_list_api, product_detail_api, ProductListAPI, ProductDetailAPI, UserViewSet
+from .api import  ProductListAPI, ProductDetailAPI, ProductReviewsList, CategoryListAPI, CategoryDetailAPI, BrandListAPI, BrandDetailAPI, UserViewSet
 
 app_name = 'products'
 
@@ -14,12 +14,21 @@ urlpatterns = [
     path('testing/', testing_page),
 
     # API
-    path("api/", product_list_api),
-    path("api/<int:id>", product_detail_api),
+
+
+    path("api/", ProductListAPI.as_view()),
+    path("api/reviews", ProductReviewsList.as_view()),
+    path("api/<int:pk>", ProductDetailAPI.as_view()),
+
+    path("api/categorys", CategoryListAPI.as_view()),
+    path("api/category/<int:pk>", CategoryDetailAPI.as_view()),
+
+
+    path("api/brands", BrandListAPI.as_view()),
+    path("api/brand/<int:pk>", BrandDetailAPI.as_view()),
+
+
+    # API (ViewSets)
 
     path("api/vs", UserViewSet.as_view({'get':'list'})),
-    path("api/cbv", ProductListAPI.as_view()),
-    path("api/cbv/<int:pk>", ProductDetailAPI.as_view()),
-
-
 ]
