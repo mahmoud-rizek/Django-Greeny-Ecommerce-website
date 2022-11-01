@@ -5,7 +5,14 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 # Create your models here.
-
+'''
+DjangoUser:
+        - user-name
+        - first name
+        - last name
+        - password
+        - email
+'''
 
 class profile(models.Model):
     user = models.OneToOneField(
@@ -15,18 +22,24 @@ class profile(models.Model):
     code_used = models.BooleanField(default=False)
     active = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.user
+    
 
 @receiver(post_save, sender=User)
-def creat_profile(sender, instance, created, **kwargs):
-    if created:
+def create_profile(sender,created, instance,**kwargs):
+    if created :
         profile.objects.create(user=instance)
+
+    
+    
+
 
 
 DATA_TYPES = [
     ('Home', 'Home'),
-    ('Accodmy', 'Accodmy'),
     ('Work', 'Work'),
-    ('Other', 'Other')
+    ('Other', 'Other'),
 ]
 
 
@@ -34,13 +47,15 @@ class userPhoneNumber(models.Model):
     user = models.ForeignKey(
         User, related_name='user_phone', on_delete=models.CASCADE)
     number = models.CharField(max_length=50)
-    type = models.CharField(choices=DATA_TYPES, max_length=10)
+    data_type = models.CharField(choices=DATA_TYPES, max_length=10)
+    
+
 
 
 class UserAddrees (models.Model):
     user = models.ForeignKey(
         User, related_name='user_addrees', on_delete=models.CASCADE)
-    type = models.CharField(choices=DATA_TYPES, max_length=10)
+    data_type = models.CharField(choices=DATA_TYPES, max_length=10)
     country = CountryField()
     city = models.CharField(max_length=20)
     region = models.CharField(max_length=20)

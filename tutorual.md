@@ -36,3 +36,8 @@ user:
     - phone
     - image
     - favorate
+
+- extend user:
+    - Baise user
+    - AbstractBaseUser
+    - one-to-one model
