@@ -11,7 +11,7 @@ STATUS_CHOICES = (
     ('shiped', 'shiped'),
     ('delivered', 'delivered')
 )
-STATUS_CHOICES = (
+STATUS = (
     ('inprogress', 'inprogress'),
     ('completed', 'completed')
 )
