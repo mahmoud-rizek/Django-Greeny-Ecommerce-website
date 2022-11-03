@@ -6,9 +6,11 @@ from orders import models as order_models
 # Create your views here.
 
 
-# ghsoubhvogxdhcly
+from .tasks import print_wellcome
 
-
+def welcome(request):
+    print_wellcome(10)
+    
 
 def dashboard(request):
     users = User.objects.all().count()
