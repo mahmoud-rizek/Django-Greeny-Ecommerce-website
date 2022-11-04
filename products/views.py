@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import product, productImages, Brand, Category
+from .models import Product, productImages, Brand, Category, productReviews
 from django.db.models import Count, Q , F
-
+from .forms import formReviews
 
 def testing_page(request):
     # objects = product.objects.all()  # select all products
+    # objects = product.objects.get(id=id)  # select  product's id
 
             ## Filter by colum
             
@@ -59,19 +60,20 @@ def testing_page(request):
 
 
 class ProductList(ListView):
-    model = product
+    model = Product
     paginate_by = 250
 
 
 class ProductDetail(DetailView):
-    model = product
+    model = Product
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         myproduct = self.get_object()
         context["images"] = productImages.objects.filter(product=myproduct)
-        context["related"] = product.objects.filter(
+        context["related"] = Product.objects.filter(
             category=myproduct.category)[:10]
+        context["reviews"] = productReviews.objects.filter(product=myproduct)
         return context
 
 
@@ -96,7 +98,7 @@ class BrandtDetail(DetailView):
         context["brands"] = Brand.objects.all().annotate(
             product_count=Count('product_brand'))
 
-        context["brand_products"] = product.objects.filter(brand=brand)
+        context["brand_products"] = Product.objects.filter(brand=brand)
         return context
 
 
@@ -108,3 +110,19 @@ class CategoryList(ListView):
         context["category"] = Category.objects.all().annotate(
             product_count=Count('product_category'))
         return context
+
+
+def add_review(request, id):        # rate , comment
+    product1 = Product.objects.get(id=id)
+    if request.method == 'POST':
+        form = formReviews(request.POST)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.product = product1
+            myform.user = request.user
+            myform.save()
+    
+    else:
+        form = ProductDetail
+
+    return render(request, template_name)

@@ -1,5 +1,5 @@
 from .serializers import ProductSerializer, CategorySerializer, CategoryDetailSerializer, BrandSerializer, BrandDetailSerializer,productReviewsSerializer, productDetailSerializer
-from .models import product, Category, Brand, productReviews
+from .models import Product, Category, Brand, productReviews
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import generics, viewsets
@@ -26,7 +26,7 @@ def edit_product(request):
     # Generics class API
 
 class ProductListAPI(generics.ListAPIView):
-    queryset = product.objects.all()
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = myPagination
     filter_backends = [DjangoFilterBackend]
@@ -37,7 +37,7 @@ class ProductListAPI(generics.ListAPIView):
 
 
 class ProductDetailAPI(generics.RetrieveAPIView):
-    queryset = product
+    queryset = Product
     permission_classes = [IsAuthenticated]
     serializer_class = productDetailSerializer  
 
@@ -72,4 +72,4 @@ class ProductReviewsList(generics.ListAPIView):
 # Viewsets API
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = product.objects.all()
+    queryset = Product.objects.all()

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import product, Category, Brand, productReviews
+from .models import Product, Category, Brand, productReviews
 
 
 
@@ -17,7 +17,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return product.price*1.1
 
     class Meta:
-        model = product
+        model = Product
         fields = '__all__'
         # fields = ['id', 'name',  'flag', 'brand', 'category', 'price_with_tax']
 
@@ -61,5 +61,5 @@ class productReviewsSerializer(serializers.ModelSerializer):
 class productDetailSerializer(serializers.ModelSerializer):
     reviews = productReviewsSerializer(source='product_review', many=True)
     class Meta:
-        model = product
+        model = Product
         fields = ['id', 'name', 'image', 'price', 'subtitle', 'flag', 'desc','brand' , 'category', 'video_url','quantity', 'reviews'] 

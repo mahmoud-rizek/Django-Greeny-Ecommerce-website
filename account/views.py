@@ -14,7 +14,7 @@ def welcome(request):
 
 def dashboard(request):
     users = User.objects.all().count()
-    products = product_models.product.objects.all().count()
+    products = product_models.Product.objects.all().count()
     reviews = product_models.productReviews.objects.all().count()
     categories = product_models.Category.objects.all().count()
     brands = product_models.Brand.objects.all().count()

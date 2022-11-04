@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import product, productImages, Category, productReviews, Brand
+from .models import Product, productImages, Category, productReviews, Brand
 # Register your models here.
 
 
@@ -16,7 +16,7 @@ class categoryadmin(admin.ModelAdmin):
 
 
 
-admin.site.register(product, productadmin)
+admin.site.register(Product, productadmin)
 admin.site.register(productImages)
 admin.site.register(productReviews)
 admin.site.register(Category, categoryadmin)

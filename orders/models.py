@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from utils.genrate_code import genrate_code
-from products.models import product
+from products.models import Product
 from django.utils import timezone
 # Create your models here.
 
@@ -31,7 +31,7 @@ class CardDetail(models.Model):
     card = models.ForeignKey(
         Card, related_name='card_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
-        product, related_name='card_product', on_delete=models.SET_NULL, null=True, blank=True)
+        Product, related_name='card_product', on_delete=models.SET_NULL, null=True, blank=True)
     quantaty = models.IntegerField()
     price = models.FloatField()
     total = models.FloatField()
@@ -56,7 +56,7 @@ class OrderDetail(models.Model):
     order = models.ForeignKey(
         Order, related_name='order_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
-        product, related_name='order_product', on_delete=models.SET_NULL, null=True, blank=True)
+        Product, related_name='order_product', on_delete=models.SET_NULL, null=True, blank=True)
     quantaty = models.IntegerField()
     price = models.FloatField()
     total = models.FloatField()

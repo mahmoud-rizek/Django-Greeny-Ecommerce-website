@@ -12,7 +12,7 @@ PRODUCT_FLAG = (
     ('Sale', 'Sale')
 )
 
-class product(models.Model):
+class Product(models.Model):
     name = models.CharField(_("Name"), max_length=100)
     image = models.ImageField(_("Image"), upload_to='products')
     price = models.FloatField(_("Price"))
@@ -33,7 +33,7 @@ class product(models.Model):
 
 
 class productImages(models.Model):
-    product = models.ForeignKey(product, verbose_name=_("productImages"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name=_("productImages"), on_delete=models.CASCADE)
     image = models.ImageField(_("Images"), upload_to='images')
 
     def __str__(self):
@@ -61,7 +61,7 @@ class Brand(models.Model):
 
 class productReviews(models.Model):
     user = models.ForeignKey(User, verbose_name=_("user_review"), on_delete=models.SET_NULL, null=True, blank=True)
-    product = models.ForeignKey(product, verbose_name=_("productReviews"), related_name='product_review', on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, verbose_name=_("productReviews"), related_name='product_review', on_delete=models.SET_NULL, null=True, blank=True)
     rate = models.IntegerField(_("Rate"))
     review = models.CharField(_("review"), max_length=500)
     created_at = models.DateTimeField(_("create at"), default=timezone.now)

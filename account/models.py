@@ -14,7 +14,7 @@ DjangoUser:
         - email
 '''
 
-class profile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(
         User, related_name='user_profile', on_delete=models.CASCADE)
     image = models.ImageField(upload_to="users")
