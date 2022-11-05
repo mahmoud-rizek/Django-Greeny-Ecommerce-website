@@ -112,17 +112,19 @@ class CategoryList(ListView):
         return context
 
 
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
 def add_review(request, id):        # rate , comment
-    product1 = Product.objects.get(id=id)
+    product_detail = Product.objects.get(id=id)
     if request.method == 'POST':
         form = formReviews(request.POST)
         if form.is_valid():
             myform = form.save(commit=False)
-            myform.product = product1
+            myform.product = product_detail
             myform.user = request.user
             myform.save()
-    
-    else:
-        form = ProductDetail
 
-    return render(request, template_name)
+            review_list = productReviews.objects.filter(product=product_detail)
+            html = render_to_string('include/reviews.html', {'reviews':review_list, request:request})
+            return JsonResponse({'result':html})
