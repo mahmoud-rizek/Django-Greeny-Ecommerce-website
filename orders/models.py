@@ -32,9 +32,9 @@ class CardDetail(models.Model):
         Card, related_name='card_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, related_name='card_product', on_delete=models.SET_NULL, null=True, blank=True)
-    quantaty = models.IntegerField()
+    quantity = models.IntegerField(default=0)
     price = models.FloatField()
-    total = models.FloatField()
+    total = models.FloatField(default=0)
 
     def __str__(self):
         return str(self.card)
@@ -63,3 +63,17 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return str(self.order)
+
+
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=50)
+    quantity = models.IntegerField()
+    from_date = models.DateField(default=timezone.now)
+    to_date = models.DateField(default=timezone.now)
+    value = models.FloatField()
+    is_valid = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.code
+    
