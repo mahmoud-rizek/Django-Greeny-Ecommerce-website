@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Product, productImages, Brand, Category, productReviews
 from django.db.models import Count, Q , F
-from .forms import formReviews
+from .forms import ProductReviewForm
 
 def testing_page(request):
     # objects = product.objects.all()  # select all products
@@ -53,7 +53,8 @@ def testing_page(request):
     # objects = product.objects.latest('name')
     # objects = product.objects.values('id', 'name')
     # objects = product.objects.values_list('id', 'name')
-    objects = product.objects.only('id', 'name')
+    objects = Product.objects.all()
+
 
     
     return render(request, "products/testing.html", {"products": objects})
@@ -116,15 +117,18 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 
 def add_review(request, id):        # rate , comment
-    product_detail = Product.objects.get(id=id)
+    myproduct = Product.objects.get(id=id)
     if request.method == 'POST':
-        form = formReviews(request.POST)
+        form = ProductReviewForm(request.POST)
         if form.is_valid():
             myform = form.save(commit=False)
-            myform.product = product_detail
+            myform.product = myproduct
             myform.user = request.user
             myform.save()
 
-            review_list = productReviews.objects.filter(product=product_detail)
-            html = render_to_string('include/reviews.html', {'reviews':review_list, request:request})
+            all_reviews = productReviews.objects.filter(product=myproduct)
+            html = render_to_string('include/reviews.html', {'reviews':all_reviews, request:request})
             return JsonResponse({'result':html})
+
+
+

@@ -3,7 +3,7 @@ from .models import productReviews
 
 
 
-class formReviews(forms.ModelForm):
+class ProductReviewForm(forms.ModelForm):
     class Meta:
         model = productReviews
         fields  = ['rate' , 'review']

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from products.models import Product
-from .models import Card, CardDetail, Order, OrderDetail
+from .models import Cart, CartDetail, Order, OrderDetail
 # Create your views here.
 
 
@@ -11,9 +11,9 @@ def add_to_cart(request):
         quantity = request.POST['quantity']
         
         product = Product.objects.get(id=product_id)
-        cart = Card.objects.get(user=request.user, status='inprogress')
-        cart_detail, created = CardDetail.objects.get_or_create(
-            card=cart,
+        card = Cart.objects.get(user=request.user, status='inprogress')
+        cart_detail, created = CartDetail.objects.get_or_create(
+            cart=card,
             product=product
         )
         cart_detail.quantity = int(quantity)
@@ -28,10 +28,10 @@ def order_list(request):
         
 
 def checkout(request):
-    cart = Card.objects.get(user=request.user, status='inprogress')
-    cart_detail = CardDetail.objects.filter(card=cart)
+    cart = Cart.objects.get(user=request.user, status='inprogress')
+    cart_detail = CartDetail.objects.filter(cart=car)
 
     if request.method == "POST":
         print(request.POST)
-    return render(request, "orders/checkout.html", {})
+    return render(request, "orders/checkout.html", {'cart':cart, 'cart_detail':cart_detail})
 
