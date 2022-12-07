@@ -29,7 +29,7 @@ def order_list(request):
 
 def checkout(request):
     cart = Cart.objects.get(user=request.user, status='inprogress')
-    cart_detail = CartDetail.objects.filter(cart=car)
+    cart_detail = CartDetail.objects.filter(cart=cart)
 
     if request.method == "POST":
         print(request.POST)
