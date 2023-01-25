@@ -9,12 +9,12 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
         <div class="user-form-logo">
-            <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+            <a href="#"><img src="{{info.logo.url}}" alt="logo"></a>
         </div>
         <div class="user-form-card">
           <div class="user-form-title">
-              <h2>welcome!</h2>
-              <p>Use your credentials to access</p>
+              <h2>Sign in</h2>
+              <p>Enter your email and password to login</p>
           </div>
           <div class="user-form-group">
               <ul class="user-form-social">
@@ -41,16 +41,16 @@
                 </div>
                 <div class="form-button">
                     <button type="submit">login</button>
-                    <p>Forgot your password?<a href="{% url 'password_reset' %}">reset here</a></p>
+                    <p><a href="{% url 'password_reset' %}">Forgotten password?</a></p>
                 </div>
               </form>
           </div>
         </div>
         <div class="user-form-remind">
-            <p>Don't have any account?<a href="{% url 'logout' %}">register here</a></p>
+            <p>New to our site?<a href="{% url 'logout' %}">Create New account</a></p>
         </div>
         <div class="user-form-footer">
-            <p>Greeny | &COPY; Copyright by <a href="#">Mironcoder</a></p>
+            <p>Greeny | &COPY; Copyright by <a href="https://www.linkedin.com/in/mahmoud-mohamed-07b983234/">{{info.name}}</a></p>
         </div>
       </div>
     </div>

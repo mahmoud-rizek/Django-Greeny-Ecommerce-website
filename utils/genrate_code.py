@@ -6,4 +6,4 @@ def genrate_code(length=8):
     code = ''.join(random.choice(numbers) for x in range(length))
     return code
 
-#print(genrate_code())
+# print(genrate_code())

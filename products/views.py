@@ -62,7 +62,7 @@ def testing_page(request):
 
 class ProductList(ListView):
     model = Product
-    paginate_by = 250
+    paginate_by = 50
 
 
 class ProductDetail(DetailView):

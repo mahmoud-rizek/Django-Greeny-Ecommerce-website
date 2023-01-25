@@ -377,7 +377,7 @@
                 <div class="product-card">
                   <div class="product-media">
                     <div class="product-label">
-                      <label class="label-text new">{{product.flag}}</label>
+                      <label class="label-text {% if  product.flag == 'sale' %}sale{% elif product.flag == 'Feature' %}feat{% elif product.flag == 'New' %}new{% endif %}">{{product.flag}}</label>
                     </div>
                     <button class="product-wish wish">
                       <i class="fas fa-heart"></i>
