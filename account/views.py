@@ -5,8 +5,32 @@ from products import models as product_models
 from orders import models as order_models
 # Create your views here.
 
-
+from .forms import SignupForm
+from .models import Profile
 from .tasks import print_wellcome
+
+
+def sign_up(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            myform = form.save()
+            profile = Profile.objects.get(user__username=username) 
+            # I don'n understand 
+            profile.active = False
+            profile.save()
+
+            # send email
+
+
+    else:
+        form = SignupForm()
+
+    return render(request, 'registration/signup.html', {'form':form})
+
+
 
 def welcome(request):
     print_wellcome(10)
