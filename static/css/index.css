@@ -194,3 +194,9 @@
     margin: 0px 10px 25px;
   }
 }
+
+.profile-image a img {
+  width: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+}

@@ -6,12 +6,19 @@ from orders import models as order_models
 # Create your views here.
 
 from .forms import SignupForm, UserActivationForm
-from .models import Profile
+from .models import Profile, UserAddrees, userPhoneNumber
+from settings.models import Company
 from .tasks import print_wellcome
 
 
-def profile(request):
-    pass
+def user_profile(request):
+    user_profile = Profile.objects.get(user=request.user)
+    user_phone = userPhoneNumber.objects.filter(user=request.user)
+    user_addrees = UserAddrees.objects.filter(user=request.user)
+
+    return render(request, 'registration/profile.html', {'profile':user_profile, 
+    'user_addrees':user_addrees,
+    'user_phone':user_phone})
 
 
 def welcome(request):
@@ -26,7 +33,7 @@ def dashboard(request):
     brands = product_models.Brand.objects.all().count()
     orders = order_models.Order.objects.all().count()
     
-    
+    company = Company.objects.all()
     receved_orders = order_models.Order.objects.filter(status='receved').count()
     processed_orders = order_models.Order.objects.filter(status='processed').count()
     shiped_orders = order_models.Order.objects.filter(status='shiped').count()
@@ -34,6 +41,7 @@ def dashboard(request):
   
     return render(request, 'account/dashboard.html', {
         'user':users,
+        'company':company,
         'products':products,
         'reviews':reviews,
         'categories':categories,
@@ -78,22 +86,22 @@ def sign_up(request):
 
     
 
-def user_activate(request, username):
+def user_activate(request):
 
-    profile = Profile.objects.get(user__username=username)  
+    # profile = Profile.objects.get(user__username=username)  
     
-    if request.method=="POST":
-        form = UserActivationForm(request.POST)
-        if form.is_valid():
-            code = form.cleaned_data["code"]
-            if profile.code == code :
-                profile.code_used = True
-                profile.code = ''
-                profile.active = True
-                return redirect("accounts/login")
-        else:
-            form= UserActivationForm()
-        return render(request, 'registration/activate.html', {'form':form})
-    else:
-        form= UserActivationForm()
-    return render(request, 'registration/activate.html', {'form':form})
+    # if request.method=="POST":
+    #     form = UserActivationForm(request.POST)
+    #     if form.is_valid():
+    #         code = form.cleaned_data["code"]
+    #         if profile.code == code :
+    #             profile.code_used = True
+    #             profile.code = ''
+    #             profile.active = True
+    #             return redirect("accounts/login")
+    #     else:
+    #         form= UserActivationForm()
+    #     return render(request, 'registration/activate.html', {'form':form})
+    # else:
+            # form= UserActivationForm()
+    return render(request, 'registration/activate.html')

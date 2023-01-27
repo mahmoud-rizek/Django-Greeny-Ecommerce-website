@@ -1,6 +1,36 @@
- 
-<form method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value='active'>
-</form>
+{% extends 'auth_base.html' %}
+{% block body %}
+<section class="user-form-part">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+              <div class="user-form-logo">
+                  <a href="index.html"><img src="{{info.logo.url}}" alt="logo"></a>
+              </div>
+              <div class="user-form-card">
+                  <div class="user-form-title">
+                      <h2>Activatie Account</h2>
+                      <p>Please check your email to activate your account.</p>
+                  </div>
+                  <form class="user-form" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input name='code' type="code" class="form-control" placeholder="Enter activate code">
+                    </div>
+                    <div class="form-button">
+                        <button type="submit">activate</button>
+                    </div>
+                  </form>
+              </div>
+              <div class="user-form-remind">
+                  <p>resend code<a href="{% url "login" %}">login here</a></p>
+              </div>
+              <div class="user-form-footer">
+                <p>Greeny | &COPY; Copyright by <a href="https://www.linkedin.com/in/mahmoud-mohamed-07b983234/">{{info.name}}</a></p>
+            </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% endblock body %}
