@@ -1,35 +1,17 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from products import models as product_models
 from orders import models as order_models
 # Create your views here.
 
-from .forms import SignupForm
+from .forms import SignupForm, UserActivationForm
 from .models import Profile
 from .tasks import print_wellcome
 
 
-def sign_up(request):
-    if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            myform = form.save()
-            profile = Profile.objects.get(user__username=username) 
-            # I don'n understand 
-            profile.active = False
-            profile.save()
-
-            # send email
-
-
-    else:
-        form = SignupForm()
-
-    return render(request, 'registration/signup.html', {'form':form})
-
+def profile(request):
+    pass
 
 
 def welcome(request):
@@ -62,3 +44,56 @@ def dashboard(request):
         'shiped_orders':shiped_orders,
         'delivered_orders':delivered_orders,
     })
+
+    
+def sign_up(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        print("Error is at here, after SignupForm !!!!!!!!!")
+        if form.is_valid():
+            print("Error is at here, after is_valid !!!!!!!!!")
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            myform = form.save()
+            profile = Profile.objects.get(user__username=username)  
+            profile.active = False
+            profile.save()
+            
+
+            # send email
+            send_mail(
+                subject= 'Greeny Activate Your Account',
+                message=f"user this code {profile.code} to activate your acount", 
+                from_email='mahmoudtino56@gmail.com', 
+                recipient_list= [email],
+                fail_silently=False
+            )
+            return redirect(f"/accounts/{username}/activate")
+
+    else:
+        form = SignupForm()
+        print("Error is at here, after else condition !!!!!!!!!")
+    return render(request, 'registration/signup.html', {"form":form} )
+
+
+    
+
+def user_activate(request, username):
+
+    profile = Profile.objects.get(user__username=username)  
+    
+    if request.method=="POST":
+        form = UserActivationForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data["code"]
+            if profile.code == code :
+                profile.code_used = True
+                profile.code = ''
+                profile.active = True
+                return redirect("accounts/login")
+        else:
+            form= UserActivationForm()
+        return render(request, 'registration/activate.html', {'form':form})
+    else:
+        form= UserActivationForm()
+    return render(request, 'registration/activate.html', {'form':form})
