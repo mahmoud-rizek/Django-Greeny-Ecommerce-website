@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 
     # Apps
     'products',
-    
+    'home',
     'orders',
     'settings',
 ]

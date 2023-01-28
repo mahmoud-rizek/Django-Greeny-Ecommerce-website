@@ -1,6 +1,13 @@
 /*========================================
             INDEX PAGE STYLE
 =========================================*/
+.profileimagep{
+  width: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+}
+
+
 .home-index-slider .dandik {
   right: 30px;
 }
@@ -195,8 +202,3 @@
   }
 }
 
-.profile-image a img {
-  width: 80px;
-  border-radius: 50%;
-  border: 3px solid var(--white);
-}
