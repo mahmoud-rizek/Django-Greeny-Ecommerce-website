@@ -33,9 +33,9 @@ class CartDetail(models.Model):
         Cart, related_name='card_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, related_name='card_product', on_delete=models.SET_NULL, null=True, blank=True)
-    quantity = models.IntegerField(default=0)
-    price = models.FloatField()
-    total = models.FloatField(default=0)
+    quantity = models.IntegerField(null=0)
+    price = models.FloatField(default=0)
+    total = models.FloatField(null=True)
 
     def __str__(self):
         return str(self.cart)
@@ -58,9 +58,9 @@ class OrderDetail(models.Model):
         Order, related_name='order_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, related_name='order_product', on_delete=models.SET_NULL, null=True, blank=True)
-    quantaty = models.IntegerField()
-    price = models.FloatField()
-    total = models.FloatField()
+    quantaty = models.IntegerField(default=0)
+    price = models.FloatField(default=0)
+    total = models.FloatField(default=0)
 
     def __str__(self):
         return str(self.order)

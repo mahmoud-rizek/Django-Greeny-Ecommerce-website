@@ -7,10 +7,10 @@
   style="background: url(images/single-banner.jpg) no-repeat center"
   >
     <div class="container">
-      <h2>Shop 3 Column</h2>
+      <h2>products</h2>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">shop-3column</li>
+        <li class="breadcrumb-item"><a href="{% url 'home_page:home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">product list</li>
       </ol>
     </div>
   </section>
@@ -428,6 +428,15 @@
                       <del>$150</del>
                       <span>{{product.price}}<small>/piece</small></span>
                     </h6>
+                    <form method="post" id="add_to_cart" action="{% url 'orders:add_to_cart' %}">
+                      {% csrf_token %}
+                      <input type="number" name="quantity" value="1">                          
+                      <input type="hidden" name="product_id" value="{{object.id}}">                          
+                      <button type="submit" class="product-add" title="Add to Cart">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span>add</span>
+                      </button>
+
                     <button class="product-add" title="Add to Cart">
                       <i class="fas fa-shopping-basket"></i>
                       <span>add</span>

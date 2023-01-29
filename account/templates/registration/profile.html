@@ -1,4 +1,9 @@
+
 {% extends 'base.html' %}
+{% load static %}
+{% block mystatic %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock mystatic %}
 {% block body %}
 
         <!--=====================================

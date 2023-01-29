@@ -2,7 +2,7 @@
 {% load static %}
 {% block mystatic %}
         <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
-        {% endblock mystatic %}
+{% endblock mystatic %}
 {% block body %}
   
 
@@ -13,8 +13,8 @@
             <div class="container">
                 <h2>checkout</h2>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="shop-4column.html">shop grid</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'home_page:home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'products:product_list' %}">product list</a></li>
                     <li class="breadcrumb-item active" aria-current="page">checkout</li>
                 </ol>
             </div>
@@ -30,11 +30,7 @@
         <section class="inner-section checkout-part">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert-info">
-                            <p>Returning customer? <a href="login.html">Click here to login</a></p>
-                        </div>
-                    </div>
+                     
                     <div class="col-lg-12">
                         <div class="account-card">
                             <div class="account-title">

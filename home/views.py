@@ -6,4 +6,6 @@ from .models import Baner
 
 
 def home(request):
-    pass
+    feature_products = Product.objects.filter(flag="Freature")[:6]
+    new_products = Product.objects.filter(flag="New")[:6]
+    return render(request, 'home.html', {'products':feature_products})

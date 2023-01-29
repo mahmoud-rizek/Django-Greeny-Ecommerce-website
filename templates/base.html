@@ -133,20 +133,28 @@
         <div class="header-content">
           <div class="header-media-group">
             <button class="header-user">
-              <img src="images/user.png" alt="user" />
+              {% if request.user.is_authenticated %}
+            
+              {% if user_profile.image.url %}
+              <img href="" src="{{user_profile.image.url}}" alt="user" />
+              {% else %}
+              <img src="{% static 'images/user.png' %}" alt="user" />
+              {% endif %}
+              
+              {% endif %}
             </button>
-            <a href="index.html"><img src="{{info.logo.url}}" alt="logo" /></a>
+            <a href="{% url 'home_page:home' %}"><img src="{{info.logo.url}}" alt="logo" /></a>
             <button class="header-src"><i class="fas fa-search"></i></button>
           </div>
 
-          <a href="index.html" class="header-logo">
+          <a href="{% url 'home_page:home' %}" class="header-logo">
             <img src="{{info.logo.url}}" alt="logo" />
           </a>
           {% if request.user.is_authenticated %}
             
-            <a href="#" class="header-widget" title="My Account">
+            <a href="{% url 'accounts:user_profile' %}" class="header-widget" title="My Account">
               {% if user_profile.image.url %}
-              <img href="profile.html" src="{{user_profile.image.url}}" alt="user" />
+              <img href="" src="{{user_profile.image.url}}" alt="user" />
               {% else %}
               <img src="{% static 'images/user.png' %}" alt="user" />
               {% endif %}
@@ -176,7 +184,7 @@
             </a>
             <button class="header-widget header-cart" title="Cartlist">
               <i class="fas fa-shopping-basket"></i>
-              <sup>9+</sup>
+              <sup>{{cart_detail_data|length}}+</sup>
               <span>total price<small>$345.00</small></span>
             </button>
           </div>
@@ -199,12 +207,19 @@
                 <li class="navbar-item">
                   <a
                     class="navbar-link"
+                    href="{% url 'home_page:home' %}"
+                    >home</a
+                  >
+                </li>
+                <li class="navbar-item">
+                  <a
+                    class="navbar-link"
                     href="{% url 'products:product_list' %}"
                     >product</a
                   >
                 </li>
                 <li class="navbar-item dropdown-megamenu">
-                  <a class="navbar-link dropdown-arrow" href="#">category</a>
+                  <a class="navbar-link dropdown-arrow" href="{% url 'products:category_list' %}">category</a>
                   <div class="megamenu">
                     <div class="container megamenu-scroll">
                       <div class="row row-cols-5">
@@ -338,7 +353,7 @@
                   >
                 </li>
                 <li class="navbar-item dropdown">
-                  <a class="navbar-link" href="#">orders</a>
+                  <a class="navbar-link" href="{% url 'orders:order_list' %}">orders</a>
                 </li>
               </ul>
               <div class="navbar-info-group">
@@ -526,22 +541,22 @@
       <div class="cart-header">
         <div class="cart-total">
           <i class="fas fa-shopping-basket"></i>
-          <span>total item ({{cart|length}})</span>
+          <span>total item ({{cart.card_detail.all|length}})</span>
         </div>
         <button class="cart-close"><i class="icofont-close"></i></button>
       </div>
       <ul class="cart-list">
         {% for item in cart.card_detail.all %}
-        <li class="cart-item">
+        <li class="cart-item"> 
           <div class="cart-media">
-            <a href="#"><img src="images/product/01.jpg" alt="product" /></a>
+            <a href="{% url 'products:product_details' product.id %}"><img src="images/product/01.jpg" alt="product" /></a>
             <button class="cart-delete">
               <i class="far fa-trash-alt"></i>
             </button>
           </div>
           <div class="cart-info-group">
             <div class="cart-info">
-              <h6><a href="product-single.html">existing product name</a></h6>
+              <h6><a href="{% url 'products:product_details' product.id %}">existing product name</a></h6>
               <p>Unit Price - $8.75</p>
             </div>
             <div class="cart-action-group">
@@ -572,7 +587,7 @@
           <input type="text" placeholder="Enter your coupon code" />
           <button type="submit"><span>apply</span></button>
         </form>
-        <a class="cart-checkout-btn" href="checkout.html">
+        <a class="cart-checkout-btn" href="{% url 'orders:checkout' %}">
           <span class="checkout-label">Proceed to Checkout</span>
           <span class="checkout-price">$369.78</span>
         </a>

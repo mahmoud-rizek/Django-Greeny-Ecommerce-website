@@ -10,14 +10,8 @@
   style="background: url(images/single-banner.jpg) no-repeat center"
 >
   <div class="container">
-    <h2>product simple</h2>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-      <li class="breadcrumb-item">
-        <a href="shop-4column.html">shop-4column</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">product-simple</li>
-    </ol>
+    <h2>product detail</h2>
+    
   </div>
 </section>
 <!--=====================================
@@ -49,28 +43,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <ul class="product-navigation">
-          <li class="product-nav-prev">
-            <a href="#">
-              <i class="icofont-arrow-left"></i>
-              prev product
-              <span class="product-nav-popup">
-                <img src="images/product/02.jpg" alt="product" />
-                <small>green chilis</small>
-              </span>
-            </a>
-          </li>
-          <li class="product-nav-next">
-            <a href="#">
-              next product
-              <i class="icofont-arrow-right"></i>
-              <span class="product-nav-popup">
-                <img src="images/product/03.jpg" alt="product" />
-                <small>green chilis</small>
-              </span>
-            </a>
-          </li>
-        </ul>
+       
         <div class="details-content">
           <h3 class="details-name"><a href="#">{{product}}</a></h3>
           <div class="details-meta">
@@ -83,7 +56,7 @@
             <i class="active icofont-star"></i>
             <i class="active icofont-star"></i>
             <i class="icofont-star"></i>
-            <a href="#">(3 reviews)</a>
+            <a href="#">({{reviews|length}} reviews)</a>
           </div>
           <h3 class="details-price">
             <del>$120</del>
@@ -98,21 +71,7 @@
               {% endfor %}
             </ul>
           </div>
-          <div class="details-list-group">
-            <label class="details-list-title">Share:</label>
-            <ul class="details-share-list">
-              <li>
-                <a href="#" class="icofont-facebook" title="Facebook"></a>
-              </li>
-              <li><a href="#" class="icofont-twitter" title="Twitter"></a></li>
-              <li>
-                <a href="#" class="icofont-linkedin" title="Linkedin"></a>
-              </li>
-              <li>
-                <a href="#" class="icofont-instagram" title="Instagram"></a>
-              </li>
-            </ul>
-          </div>
+          
           <div class="details-add-group">
 
             <form method="post" id="add_to_cart" action="{% url 'orders:add_to_cart' %}">
@@ -147,14 +106,7 @@
               <i class="icofont-heart"></i>
               <span>add to wish</span>
             </a>
-            <a
-              class="details-compare"
-              href="compare.html"
-              title="Compare This Item"
-            >
-              <i class="fas fa-random"></i>
-              <span>Compare This</span>
-            </a>
+            
           </div>
         </div>
       </div>
@@ -202,7 +154,7 @@
           </table>
         </div>
         <div class="product-details-frame">
-          <h3 class="frame-title">Reviews (2)</h3>
+          <h3 class="frame-title">Reviews ({{reviews|length}})</h3>
           <ul class="review-list" id='reviewDiv'>
             {% include 'include/reviews.html' %}
           </ul>
