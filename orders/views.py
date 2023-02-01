@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from products.models import Product
 from account.models import UserAddrees
-from .models import Cart, CartDetail, Order, OrderDetail
+from .models import Cart, CartDetail, Order, OrderDetail, Coupon
+from django.utils.timezone import datetime
 # Create your views here.
 
 
@@ -33,7 +34,17 @@ def checkout(request):
     cart = Cart.objects.get(user=request.user, status='inprogress')
     cart_detail = CartDetail.objects.filter(cart=cart)
 
+    date_today = datetime.today().date()
+
     if request.method == "POST":
-        print(request.POST)
+        code = request.POST=['coupon_code']
+        coupon_code = get_object_or_404(Coupon, code=code)
+        if coupon_code and coupon_code.quantity > 0 :
+            if date_today >= coupon_code.from_date and date_today <= coupon_code.to_date:
+                ''
+        
+
+
+
     return render(request, "orders/checkout.html", {'cart':cart, 'cart_detail':cart_detail})
 
