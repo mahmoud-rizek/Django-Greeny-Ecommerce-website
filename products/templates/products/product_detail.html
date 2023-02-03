@@ -27,7 +27,7 @@
       <div class="col-lg-6">
         <div class="details-gallery">
           <div class="details-label-group">
-            <label class="details-label new">{{product.flag}}</label>
+            <label class="details-label {% if  product.flag == 'sale' %}sale{% elif product.flag == 'Feature' %}feat{% elif product.flag == 'New' %}new{% endif %}">{{product.flag}}</label>
             <label class="details-label off">-10%</label>
           </div>
           <ul class="details-preview">
