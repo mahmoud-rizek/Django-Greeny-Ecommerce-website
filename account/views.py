@@ -21,8 +21,7 @@ def user_profile(request):
     'user_phone':user_phone})
 
 
-def welcome(request):
-    print_wellcome(10)
+
     
 
 def dashboard(request):
@@ -88,20 +87,20 @@ def sign_up(request):
 
 def user_activate(request):
 
-    # profile = Profile.objects.get(user__username=username)  
+    profile = Profile.objects.get(user__username=username)  
     
-    # if request.method=="POST":
-    #     form = UserActivationForm(request.POST)
-    #     if form.is_valid():
-    #         code = form.cleaned_data["code"]
-    #         if profile.code == code :
-    #             profile.code_used = True
-    #             profile.code = ''
-    #             profile.active = True
-    #             return redirect("accounts/login")
-    #     else:
-    #         form= UserActivationForm()
-    #     return render(request, 'registration/activate.html', {'form':form})
-    # else:
-            # form= UserActivationForm()
+    if request.method == "POST":
+        form = UserActivationForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data["code"]
+            if profile.code == code :
+                profile.code_used = True
+                profile.code = ''
+                profile.active = True
+                return redirect("accounts/login")
+        else:
+            form= UserActivationForm()
+        return render(request, 'registration/activate.html', {'form':form})
+    else:
+            form= UserActivationForm()
     return render(request, 'registration/activate.html')

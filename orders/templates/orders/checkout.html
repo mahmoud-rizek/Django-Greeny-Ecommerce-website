@@ -67,35 +67,18 @@
                                             {% endfor %}
                                             
                                         </tbody>
-                                    </table>
+                                    </table> 
                                 </div>
                                 <div class="chekout-coupon">
                                     <button class="coupon-btn">Do you have a coupon code?</button>
-                                    <form class="coupon-form" method ="post">
+                                    <form class="coupon-form" method ="post" id="couponForm" action=".">
                                         {% csrf_token %}
                                         <input type="text" name ="coupon_code" placeholder="Enter your coupon code">
                                         <button type="submit"><span>apply</span></button>
                                     </form>
                                 </div>
-                                <div class="checkout-charge">
-                                    <ul>
-                                        <li>
-                                            <span>Sub total</span>
-                                            <span>$267.45</span>
-                                        </li>
-                                        <li>
-                                            <span>delivery fee</span>
-                                            <span>$10.00</span>
-                                        </li>
-                                        <li>
-                                            <span>discount</span>
-                                            <span>$00.00</span>
-                                        </li>
-                                        <li>
-                                            <span>Total<small>(Incl. VAT)</small></span>
-                                            <span>$277.00</span>
-                                        </li>
-                                    </ul>
+                                <div class="checkout-charge" id="summerydiv">
+                                    {% include 'include/summery.html' %}
                                 </div>
                             </div>
                         </div>
@@ -137,36 +120,18 @@
                             </div>
                             <div class="account-content">
                                 <div class="row">
+                                    {% for phone in phones %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="profile-card contact active">
-                                            <h6>primary</h6>
-                                            <p>+8801838288389</p>
+                                            <h6>{{phone.data_type}}</h6>
+                                            <p>{{phone.number}}</p>
                                             <ul>
                                                 <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button></li>
                                                 <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card contact">
-                                            <h6>secondary</h6>
-                                            <p>+8801941101915</p>
-                                            <ul>
-                                                <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button></li>
-                                                <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card contact">
-                                            <h6>secondary</h6>
-                                            <p>+8801747875727</p>
-                                            <ul>
-                                                <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button></li>
-                                                <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -179,36 +144,18 @@
                             </div>
                             <div class="account-content">
                                 <div class="row">
+                                    {% for addres in address %}
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="profile-card address active">
-                                            <h6>Home</h6>
-                                            <p>jalkuri, fatullah, narayanganj-1420. word no-09, road no-17/A</p>
+                                            <h6>{{addres.data_type}}</h6>
+                                            <p>{{addres.street}}, {{addres.region}}, {{addres.city}}, {{addres.country}}, ({{addres.notes}})</p>
                                             <ul class="user-action">
                                                 <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit"></button></li>
                                                 <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card address">
-                                            <h6>Office</h6>
-                                            <p>east tejturi bazar, dhaka-1200. word no-04, road no-13/c, house no-4/b</p>
-                                            <ul class="user-action">
-                                                <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit"></button></li>
-                                                <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card address">
-                                            <h6>Bussiness</h6>
-                                            <p>kawran bazar, dhaka-1100. word no-02, road no-13/d, house no-7/m</p>
-                                            <ul class="user-action">
-                                                <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit"></button></li>
-                                                <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -224,34 +171,6 @@
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
                                             <img src="images/payment/png/01.png" alt="payment">
-                                            <h4>card number</h4>
-                                            <p>
-                                                <span>****</span>
-                                                <span>****</span>
-                                                <span>****</span>
-                                                <sup>1876</sup>
-                                            </p>
-                                            <h5>miron mahmud</h5>
-                                            <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="payment-card payment">
-                                            <img src="images/payment/png/02.png" alt="payment">
-                                            <h4>card number</h4>
-                                            <p>
-                                                <span>****</span>
-                                                <span>****</span>
-                                                <span>****</span>
-                                                <sup>1876</sup>
-                                            </p>
-                                            <h5>miron mahmud</h5>
-                                            <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="payment-card payment">
-                                            <img src="images/payment/png/03.png" alt="payment">
                                             <h4>card number</h4>
                                             <p>
                                                 <span>****</span>
@@ -290,7 +209,8 @@
             <div class="modal-dialog modal-dialog-centered"> 
                 <div class="modal-content">
                     <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
-                    <form class="modal-form">
+                    <form class="modal-form" method='post' id="contenetform" action= {% url 'orders:checkout' %}>
+                        {% csrf_token %}
                         <div class="form-title">
                             <h3>add new contact</h3>
                         </div>
@@ -298,6 +218,7 @@
                             <label class="form-label">title</label>
                             <select class="form-select">
                                 <option selected>choose title</option>
+                                
                                 <option value="primary">primary</option>
                                 <option value="secondary">secondary</option>
                             </select>
@@ -425,5 +346,28 @@
         <!--=====================================
                     MODAL EDIT FORM END
         =======================================-->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+          $(document).ready(function () {
+            $(document).on('submit', '#couponForm', function (event) {
+              event.preventDefault(); // Stop refresh
+              $.ajax({
+                type: $(this).attr('method'),
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType:'json',
+                success: function (response) {
+                  $('#summerydiv').html(response['result'])
+                },
+                error: function (err) {
+                  console.log(err)
+                },
+              });
+            })
+            
+          } )
+        
+        </script>
 
         {% endblock body %}

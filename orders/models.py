@@ -26,6 +26,12 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.cart
+    
+    def get_total(self):
+        total = 0
+        for cart_detail in self.card_detail.all():
+            total += cart_detail.total
+        return total
 
 
 class CartDetail(models.Model):
@@ -33,9 +39,9 @@ class CartDetail(models.Model):
         Cart, related_name='card_detail', on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, related_name='card_product', on_delete=models.SET_NULL, null=True, blank=True)
-    quantity = models.IntegerField(null=0)
+    quantity = models.IntegerField(default=0)
     price = models.FloatField(default=0)
-    total = models.FloatField(null=True)
+    total = models.FloatField(default=True)
 
     def __str__(self):
         return str(self.cart)

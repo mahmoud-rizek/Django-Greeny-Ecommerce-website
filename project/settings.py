@@ -168,7 +168,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"
 ]
-
+STATIC_ROOT =BASE_DIR /  'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -199,10 +199,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mahmoudtino56@gmail.com'
-EMAIL_HOST_PASSWORD = 'lqcizemefhnhepwch'
+EMAIL_HOST_PASSWORD = 'wofxatjlbqhfohui'
 
 
 
 # Deploy on Rail-way
 
-STATIC_ROOT =BASE_DIR /  'staticfiles'

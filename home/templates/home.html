@@ -120,7 +120,7 @@
                                 <h1>free home delivery within 24 hours now.</h1>
                                 <p>Lorem ipsum dolor consectetur adipisicing elit modi consequatur eaque expedita porro necessitatibus eveniet voluptatum quis pariatur Laboriosam molestiae architecto excepturi</p>
                                 <div class="banner-btn">
-                                    <a class="btn btn-inline" href="shop-4column.html">
+                                    <a class="btn btn-inline" href="{% url 'products:product_list' %}">
                                         <i class="fas fa-shopping-basket"></i>
                                         <span>shop now</span>
                                     </a>
@@ -182,7 +182,7 @@
                     <li>
                         <a class="suggest-card" href="shop-4column.html">
                             <img src="{{catgor.image.url}}" alt="suggest">
-                            <h5>{{catgor}} <span>{{catgor|length}} items</span></h5>
+                            <h5>{{catgor}} <span>{{catgor.product_category}} items</span></h5>
                         </a>
                     </li>
                     {% endfor %}
@@ -439,7 +439,7 @@
                                             <i class="fas fa-heart"></i>
                                         </button>
                                         <a class="product-image" href="product-video.html">
-                                            <img src="{{newProduct.imge.url}}" alt="product">
+                                            <img src="{{newProduct.image.url}}" alt="product">
                                         </a>
                                         <div class="product-widget">
                                             <a title="Product Compare" href="compare.html" class="fas fa-random"></a>
@@ -1990,7 +1990,7 @@
                         </div>
                         <div class="brand-meta">
                             <h4>{{brand}}</h4>
-                            <p>({{brand|length}} items)</p>
+                            <p>({{brand.product_count}} items)</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -2027,11 +2027,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="testimonial-slider slider-arrow">
-                            {% for reviw in productReviews %}
+                            {% for review in productReviews %}
                                 <div class="testimonial-card">
                                     <i class="fas fa-quote-left"></i>
-                                    <p>{{reviw.review}}</p>
-                                    <h5>{{reviw.user}}</h5>
+                                    <p>{{review.review}}</p>
+                                    <h5>{{review.user}}</h5>
                                     <ul>
                                         <li class="fas fa-star"></li>
                                         <li class="fas fa-star"></li>
